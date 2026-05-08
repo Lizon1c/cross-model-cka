@@ -414,8 +414,8 @@ both representations using identical residue-index bases. Fourier bases
 include intercept, cubic polynomial terms, and sine/cosine pairs up to
 the indicated frequency.
 
-| Pair | Raw | Linear | Cubic | Fourier5 | Fourier10 | Fourier20 |
-|------|-----|--------|-------|----------|-----------|-----------|
+| Pair | Raw | Lin | Cub | F5 | F10 | F20 |
+|------|-----|-----|-----|----|-----|-----|
 | EVO2 × RF3 | 0.851 | 0.101 | 0.032 | 0.002 | 0.000 | 0.000 |
 | FAESM × RF3 | 0.870 | 0.401 | 0.272 | 0.063 | 0.072 | 0.024 |
 | FAESM × EVO2 | 0.101 | 0.005 | 0.001 | 0.000 | 0.000 | 0.000 |
@@ -447,15 +447,15 @@ cross-model alignment, we repeated the delta analysis on FAESM–RF3 using
 300 paired mutants (same protein variants). All methods matched the EVO2
 delta pipeline.
 
-| Metric | EVO2 × RF3 | FAESM × RF3 |
-|--------|-----------|------------|
+| Metric | EVO2×RF3 | FAESM×RF3 |
+|--------|----------|-----------|
 | Observed delta CKA | 0.207 ± 0.079 | 0.252 ± 0.110 |
 | Pair-shuffle null | 0.212 ± 0.079 | 0.257 ± 0.114 |
 | Excess (obs − shuf) | −0.005 | −0.005 |
 | Mean-removed observed | 0.041 | 0.310 |
-| Mean-removed pair-shuffle | 0.041 | 0.309 |
+| Mean-removed shuffle | 0.041 | 0.309 |
 | Retrieval top-1 | 1.0% | 0.0% |
-| Retrieval mean rank | 102.2 | 155.5 (random: 150) |
+| Retrieval mean rank | 102.2 | 155.5 (rnd: 150) |
 
 FAESM delta CKA is indistinguishable from the pair-shuffled null
 (excess = −0.005), and retrieval of matched mutants is at chance (top-1
@@ -553,19 +553,19 @@ structural or functional convergence between the two models.
 
 The following table summarizes the full hierarchy of controls applied:
 
-| Null / Control | What it tests | Result |
-|---|---|---|
-| Residue-shuffle | Residue-order dependence | CKA collapses (0.85 → 0.01): non-random order |
-| Max-null full scan | Multiple testing (194,560 pairs) | p ≈ 0.0005: head pair significant |
-| Position-only baseline | Coordinate geometry dominance | Sinusoid 0.60, linear 0.76: position explains majority |
-| Polynomial residualization | Low-order position trend | Linear residual 0.02, cubic 0.004: fixed pair positional |
-| Contiguous-interval null | Domain position confound | Enrichment vanishes: not domain-specific |
-| Position-weak head filter | Need for position-sensitive heads | Max CKA 0.09 when both pos < 0.10 |
-| Segment excess scan | Local EVO2 advantage | Mean excess −0.43 to −0.48: no segment advantage |
-| Cross-mutant stability | Mutation sensitivity | CKA 0.848 ± 0.009: mutation-insensitive |
+| Null / Control | Tests | Result |
+|---|---|---|---|
+| Residue-shuffle | Residue-order dependence | CKA 0.85→0.01: non-random order |
+| Max-null full scan | Multiple testing (194,560 pairs) | p≈0.0005: head pair significant |
+| Position-only baseline | Coordinate geometry dominance | Sin 0.60, linear 0.76: position dominates |
+| Polynomial residual | Low-order position trend | Lin resid 0.02, cubic 0.004 |
+| Contiguous-interval null | Domain position confound | Enrichment vanishes |
+| Position-weak head filter | Need position-sensitive heads | Max CKA 0.09 when both pos<0.10 |
+| Segment excess scan | Local EVO2 advantage | Mean excess −0.43 to −0.48 |
+| Cross-mutant stability | Mutation sensitivity | CKA 0.848±0.009: insensitive |
 | Pair-shuffle delta | Mutant-specific response | Observed ≈ pair-shuffled (p=0.42) |
-| Delta global-mode removal | Common perturbation axis | Collapses to 0.04 after mean removal |
-| Local/contact delta | Local structural response alignment | Zero: mutation signals do not carry local structural information matching RF3 |
+| Delta global-mode removal | Common perturbation axis | CKA→0.04 after mean removal |
+| Local/contact delta | Local structural alignment | Zero: no local structural info |
 | Mutant retrieval | Matched mutant identification | Random (top-1 1%, mean rank 102) |
 
 ---
@@ -602,14 +602,14 @@ activations, and figures are publicly available at the GitHub repository:
 
 | Directory | Contents |
 |-----------|----------|
-| `data/matrices/` | Precomputed CKA matrices (`full_cka_matrix.pt`, 160×1216), chain A/B comparison |
-| `data/nulls/` | Max-null distributions (`max_null_2000.pt`, 2000 permutations), frame-shift diagnostics |
-| `data/mutants/` | Sample head activations (17 .pt files: 11 FAESM, 5 EVO2, 1 RF3 WT; 916 MB via Git LFS) |
+| `data/matrices/` | CKA matrices (160×1216), chain A/B comparison |
+| `data/nulls/` | Max-null (2000 perms), frame-shift diagnostics |
+| `data/mutants/` | 17 sample .pt files (916 MB, Git LFS) |
 | `data/figures/` | Paper figures (4 PNGs) |
-| `scripts/core/` | Core alignment libraries (`align_residues.py`, `evo2_to_rf3_align_v32.py`) |
+| `scripts/core/` | `align_residues.py`, `evo2_to_rf3_align_v32.py` |
 | `scripts/scan/` | Full head-pair scan pipeline |
 | `scripts/controls/` | Max-null, per-residue Pearson, segment analysis |
-| `scripts/diagnostics/` | Position baselines, frame-shift scan, residual scan, chain A/B diagnostics |
+| `scripts/diagnostics/` | Position baselines, frame-shift, residual scan |
 | `scripts/report/` | Best-pairs analysis, report generation |
 | `paper/` | Final paper (PDF, DOCX, Markdown) |
 
@@ -625,7 +625,7 @@ documentation is in `scripts/README.txt`, dependencies in `requirements.txt`.
 
 | Figure | File | Description |
 |--------|------|-------------|
-| Figure 1 | `data/figures/fig_cka_matrix_null.png` | Full CKA matrix histogram (194,560 pairs) + max-null distribution (2,000 permutations) |
-| Figure 2 | `data/figures/fig_delta_null.png` | Delta CKA: observed vs pair-shuffle vs residue-shuffle; global mode removal |
-| Figure 3 | `data/figures/fig_local_delta.png` | Delta CKA: global vs local sequence windows (±5/±10/±20 aa) and 3D contact neighborhoods |
-| Figure 4 | `data/figures/fig_residual_ladder.png` | Position-basis residualization: EVO2×RF3, FAESM×RF3, FAESM×EVO2 |
+| 1 | `data/figures/fig_cka_matrix_null.png` | CKA matrix histogram (194,560 pairs) + max-null (2,000 perms) |
+| 2 | `data/figures/fig_delta_null.png` | Delta CKA: observed vs pair-shuffle vs residue-shuffle |
+| 3 | `data/figures/fig_local_delta.png` | Delta CKA: local windows (±5/±10/±20 aa) ¹ 3D contacts |
+| 4 | `data/figures/fig_residual_ladder.png` | Residualization: EVO2×RF3, FAESM×RF3, FAESM×EVO2 |
