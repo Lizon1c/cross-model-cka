@@ -7,12 +7,9 @@
 Reflects Low-Frequency Smoothing Bias\\
 Rather Than Structural Convergence}
 
-\author{[First Author]\thanks{Corresponding author: email@example.com} \\
-  \textit{Affiliation} \\
-  \and
-  [Second Author / Advisor] \\
-  \textit{Affiliation}
-}
+\author{Cheng Ding\\
+\textit{ShanghaiTech University}\\
+\texttt{dingcheng2024@shanghaitech.edu.cn}}
 
 \date{}
 
@@ -20,34 +17,29 @@ Rather Than Structural Convergence}
 \maketitle
 
 \begin{abstract}
-We test whether DNA and protein language models (EVO2, FAESM/ESM2-650M) 
-share intermediate head-level residue representations with a 
-protein-structure diffusion model (RFdiffusion3) on the AsCas12f1 
-CRISPR-Cas locus. After correcting the protein length to 422 aa 
-(UniProt A0A2U3D0N8) and aligning coordinates via codon pooling, 
-we scan 160 EVO2 heads, 660 FAESM heads, and 1,216 RF3 heads 
-(194,560--802,560 pairs). The strongest raw head pair achieves CKA~=~0.851 
-(2,000-permutation max-null $p \approx 0.0005$). 
+We test whether DNA and protein language models (EVO2, FAESM/ESM2-650M)
+share intermediate head-level residue representations with a
+protein-structure diffusion model (RFdiffusion3) on the AsCas12f1
+CRISPR-Cas locus. After correcting the protein length to 422 aa
+(UniProt A0A2U3D0N8) and aligning coordinates via codon pooling,
+we scan 160 EVO2 heads, 660 FAESM heads, and 1,216 RF3 heads
+(194,560--802,560 pairs). The strongest raw head pair achieves
+CKA~=~0.851 (2,000-permutation max-null $p \approx 0.0005$).
 
-However, extensive controls reveal that high raw CKA is dominated by 
-multiscale residue-order geometry rather than domain-specific functional 
-alignment. Position-only baselines match or exceed real EVO2 at segment 
-scales (mean excess $-$0.43 to $-$0.48). Apparent domain enrichment 
-vanishes under position-aware nulls. Mutation-induced delta CKA is 
-indistinguishable from pair-shuffled controls ($p = 0.42$), and 
-retrieval of matched mutants is at chance. A protein-LM control 
-using FAESM reproduces the same pattern: high static CKA without 
-mutation-specific alignment. 
+However, extensive controls reveal that high raw CKA is dominated by
+multiscale residue-order geometry rather than domain-specific functional
+alignment. Position-only baselines match or exceed real EVO2 at segment
+scales (mean excess $-$0.43 to $-$0.48). Apparent domain enrichment
+vanishes under position-aware nulls. Mutation-induced delta CKA is
+indistinguishable from pair-shuffled controls ($p = 0.42$), and
+retrieval of matched mutants is at chance. A protein-LM control
+using FAESM reproduces the same pattern: high static CKA without
+mutation-specific alignment.
 
-The triangular EVO2--FAESM--RF3 comparison shows that cross-model CKA 
-primarily measures shared residue-order geometry rather than biological 
-semantics. High static CKA---whether from a DNA LM or a protein LM---does 
+The triangular EVO2--FAESM--RF3 comparison shows that cross-model CKA
+primarily measures shared residue-order geometry rather than biological
+semantics. High static CKA---whether from a DNA LM or a protein LM---does
 not imply recoverable mutation-specific or residue-level semantic alignment.
 \end{abstract}
-
-\input{body.tex}
-
-\bibliographystyle{plain}
-\bibliography{references}
 
 \end{document}
