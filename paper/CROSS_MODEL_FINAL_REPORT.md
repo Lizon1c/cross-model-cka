@@ -600,41 +600,32 @@ All analysis code, precomputed matrices, null distributions, sample mutant
 activations, and figures are publicly available at the GitHub repository:
 **[github.com/Lizon1c/cross-model-cka](https://github.com/Lizon1c/cross-model-cka)**.
 
-### Repository Structure
-
 | Directory | Contents |
 |-----------|----------|
 | `data/matrices/` | Precomputed CKA matrices (`full_cka_matrix.pt`, 160×1216), chain A/B comparison |
 | `data/nulls/` | Max-null distributions (`max_null_2000.pt`, 2000 permutations), frame-shift diagnostics |
 | `data/mutants/` | Sample head activations (17 .pt files: 11 FAESM, 5 EVO2, 1 RF3 WT; 916 MB via Git LFS) |
-| `data/figures/` | Paper figures (4 PNGs: CKA matrix histograms, delta null, local delta, residual ladder) |
-| `data/G00/` | Cross-group sensitivity analysis (1 of 10 mutant groups; G01–G09 available upon request) |
+| `data/figures/` | Paper figures (4 PNGs) |
 | `scripts/core/` | Core alignment libraries (`align_residues.py`, `evo2_to_rf3_align_v32.py`) |
 | `scripts/scan/` | Full head-pair scan pipeline |
-| `scripts/controls/` | Max-null, per-residue pearson, segment analysis |
+| `scripts/controls/` | Max-null, per-residue Pearson, segment analysis |
 | `scripts/diagnostics/` | Position baselines, frame-shift scan, residual scan, chain A/B diagnostics |
 | `scripts/report/` | Best-pairs analysis, report generation |
-| `paper/` | Final paper (PDF, DOCX, Markdown, Chinese version), alignment report |
-
-### Large Data
+| `paper/` | Final paper (PDF, DOCX, Markdown) |
 
 Raw head activation data for all 8,000+ mutants per model (~339 GB total)
 is available upon request from the corresponding author. Contact:
 `dingcheng2024@shanghaitech.edu.cn`.
 
-### Reproducibility
-
-The 14 analysis scripts under `scripts/` reproduce all paper figures and
-tables from the precomputed matrices in `data/`. Script documentation is
-provided in `scripts/README.txt`. Dependencies are listed in
-`requirements.txt`. Path configurations (hardcoded in the original
-environment) can be overridden via `export PROJECT_ROOT=`.
+Reproducibility: The 14 analysis scripts under `scripts/` reproduce all
+paper figures and tables from the precomputed matrices in `data/`. Script
+documentation is in `scripts/README.txt`, dependencies in `requirements.txt`.
 
 ### Figures
 
 | Figure | File | Description |
 |--------|------|-------------|
 | Figure 1 | `data/figures/fig_cka_matrix_null.png` | Full CKA matrix histogram (194,560 pairs) + max-null distribution (2,000 permutations) |
-| Figure 2 | `data/figures/fig_delta_null.png` | Delta CKA: observed vs pair-shuffle vs residue-shuffle; global mode removal after mean subtraction |
-| Figure 3 | `data/figures/fig_local_delta.png` | Delta CKA: global vs local sequence windows (±5/±10/±20 aa) and 3D contact neighborhoods (8Å, 12Å, long-range) |
-| Figure 4 | `data/figures/fig_residual_ladder.png` | Progressive position-basis residualization: EVO2×RF3, FAESM×RF3, FAESM×EVO2 under linear, cubic, Fourier-5/10/20 bases |
+| Figure 2 | `data/figures/fig_delta_null.png` | Delta CKA: observed vs pair-shuffle vs residue-shuffle; global mode removal |
+| Figure 3 | `data/figures/fig_local_delta.png` | Delta CKA: global vs local sequence windows (±5/±10/±20 aa) and 3D contact neighborhoods |
+| Figure 4 | `data/figures/fig_residual_ladder.png` | Position-basis residualization: EVO2×RF3, FAESM×RF3, FAESM×EVO2 |
