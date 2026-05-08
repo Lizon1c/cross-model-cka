@@ -2,13 +2,13 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+**Cheng Ding**  
+ShanghaiTech University  
+dingcheng2024@shanghaitech.edu.cn
+
 This repository contains the complete analysis pipeline for the paper:
 
 **"Cross-Model CKA Alignment Between EVO2 and RFdiffusion3 Reflects Low-Frequency Smoothing Bias Rather Than Structural Convergence"**
-
-## Abstract
-
-We test whether DNA and protein language models (EVO2, FAESM/ESM2) share intermediate head-level representations with a protein-structure diffusion model (RFdiffusion3) on the AsCas12f1 CRISPR-Cas locus. High raw CKA emerges, but extensive position-basis controls, mutation-delta pair-shuffle tests, and a protein-LM triangular comparison show the alignment is driven by multiscale residue-order geometry rather than by shared biological semantics.
 
 ## Repository Structure
 
@@ -40,13 +40,11 @@ We test whether DNA and protein language models (EVO2, FAESM/ESM2) share interme
 
 ## Citation
 
-If you use this work, please cite:
-
 ```bibtex
-@article{cross-model-cka-2025,
+@article{ding2025crossmodelcka,
   title={Cross-Model CKA Alignment Between EVO2 and RFdiffusion3 Reflects
          Low-Frequency Smoothing Bias Rather Than Structural Convergence},
-  author={[Authors]},
+  author={Ding, Cheng},
   year={2025},
   eprint={arXiv:XXXX.XXXXX}
 }
