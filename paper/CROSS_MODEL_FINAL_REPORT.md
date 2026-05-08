@@ -64,7 +64,7 @@ high CKA. The current single-locus WT/mutant analyses do not support
 the interpretation that EVO2 captures domain-specific functional
 information that exceeds coordinate geometry.
 
-**Data and code:** `scripts/` and `output_heads/evo2_full10/`
+**Data and code:** [github.com/Lizon1c/cross-model-cka](https://github.com/Lizon1c/cross-model-cka)
 
 ---
 
@@ -175,12 +175,16 @@ Only 9.1% of pairs exceed CKA > 0.5.
 Systematic frame-shift tests show that CKA is insensitive to codon
 boundaries:
 
+\footnotesize
+
 | Signal | shift=0 | shift=10 | shift=50 | shift=100 | shift=500 |
 |--------|---------|----------|----------|-----------|-----------|
 | EVO2 real | 0.853 | 0.857 | 0.877 | 0.865 | 0.390 |
 | Codon-mean repeated | 0.853 | 0.858 | 0.878 | 0.866 | 0.390 |
 | Row-shuffled EVO2 | 0.010 | 0.011 | 0.011 | 0.010 | 0.004 |
 | Gaussian noise | 0.032 | 0.032 | 0.033 | 0.033 | 0.037 |
+
+\normalsize
 
 Three conclusions: (1) the alignment is not a marginal-distribution artifact
 (row-shuffle → 0.01); (2) shift robustness arises from local nucleotide
@@ -291,6 +295,8 @@ We tested this by computing the sinusoid position-baseline CKA for every
 EVO2 and RF3 head, then filtering pairs by their position-sensitivity
 percentiles.
 
+\footnotesize
+
 | Filter | pairs | max raw CKA | best EVO2 | best RF3 |
 |--------|-------|-------------|-----------|----------|
 | All pairs | 194,560 | 0.851 | mod0004_h28 | mod0076_h00 |
@@ -298,6 +304,8 @@ percentiles.
 | Both bottom 25% | 12,160 | 0.233 | mod0003_h28 | mod0013_h04 |
 | Both pos < 0.10 (abs) | 2,874 | 0.094 | mod0001_h17 | mod0001_h08 |
 | Both pos < 0.05 (abs) | 319 | 0.041 | mod0001_h18 | mod0015_h03 |
+
+\normalsize
 
 When both heads are position-weak (bottom 25% or absolute CKA < 0.10),
 the maximum pair CKA drops to 0.09–0.23 — comparable to the all-pairs
@@ -344,9 +352,9 @@ To test whether mutation-specific cross-model alignment exists beyond the
 static WT baseline, we computed mutation-induced feature deltas for 300
 paired EVO2–RF3 mutants (both models run on the same protein variant):
 
-\[
+$$
 \Delta E_m = E_m - E_{WT}, \quad \Delta R_m = R_m - R_{WT}
-\]
+$$
 
 for the fixed head pair (mod0004_h28 ↔ mod0076_h00). RF3 mutant outputs
 were verified to differ substantially from WT (‖R_m − R_WT‖ ≈ 300–400
@@ -414,11 +422,15 @@ both representations using identical residue-index bases. Fourier bases
 include intercept, cubic polynomial terms, and sine/cosine pairs up to
 the indicated frequency.
 
+\footnotesize
+
 | Pair | Raw | Lin | Cub | F5 | F10 | F20 |
 |------|-----|-----|-----|----|-----|-----|
 | EVO2 × RF3 | 0.851 | 0.101 | 0.032 | 0.002 | 0.000 | 0.000 |
 | FAESM × RF3 | 0.870 | 0.401 | 0.272 | 0.063 | 0.072 | 0.024 |
 | FAESM × EVO2 | 0.101 | 0.005 | 0.001 | 0.000 | 0.000 | 0.000 |
+
+\normalsize
 
 Three findings emerge. First, EVO2–RF3 alignment is dominated by
 low-frequency coordinate structure, collapsing to near-zero after
@@ -553,20 +565,24 @@ structural or functional convergence between the two models.
 
 The following table summarizes the full hierarchy of controls applied:
 
+\footnotesize
+
 | Null / Control | Tests | Result |
-|---|---|---|---|
-| Residue-shuffle | Residue-order dependence | CKA 0.85→0.01: non-random order |
-| Max-null full scan | Multiple testing (194,560 pairs) | p≈0.0005: head pair significant |
-| Position-only baseline | Coordinate geometry dominance | Sin 0.60, linear 0.76: position dominates |
+|---|---|---|
+| Residue-shuffle | Residue-order dependence | CKA 0.85→0.01: non-random |
+| Max-null full scan | Multiple testing (194,560 pairs) | p≈0.0005: significant |
+| Position-only baseline | Coordinate geometry dominance | Sin 0.60, linear 0.76 |
 | Polynomial residual | Low-order position trend | Lin resid 0.02, cubic 0.004 |
 | Contiguous-interval null | Domain position confound | Enrichment vanishes |
-| Position-weak head filter | Need position-sensitive heads | Max CKA 0.09 when both pos<0.10 |
+| Position-weak head filter | Need position-sensitive heads | Max CKA 0.09 (both pos<0.10) |
 | Segment excess scan | Local EVO2 advantage | Mean excess −0.43 to −0.48 |
-| Cross-mutant stability | Mutation sensitivity | CKA 0.848±0.009: insensitive |
+| Cross-mutant stability | Mutation sensitivity | CKA 0.848±0.009 |
 | Pair-shuffle delta | Mutant-specific response | Observed ≈ pair-shuffled (p=0.42) |
 | Delta global-mode removal | Common perturbation axis | CKA→0.04 after mean removal |
 | Local/contact delta | Local structural alignment | Zero: no local structural info |
 | Mutant retrieval | Matched mutant identification | Random (top-1 1%, mean rank 102) |
+
+\normalsize
 
 ---
 
