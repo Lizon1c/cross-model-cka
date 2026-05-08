@@ -1,0 +1,10 @@
+*.pt
+*.pth
+*.safetensors
+__pycache__/
+*.pyc
+.DS_Store
+output_pdbs/
+temp_*/
+logs/
+*.log
