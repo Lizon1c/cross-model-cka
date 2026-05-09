@@ -528,7 +528,47 @@ confirms this interpretation. The CKA signal reflects a generic
 smoothing bias induced by deep position mixing, not a specific
 structural or functional convergence between the two models.
 
-### 3.3 Limitations and Future Work
+### 3.3 Fourier Residualization and Residue-Level Semantics
+
+A subtle interpretational point concerns the Fourier residualization results
+(§2.10). The Fourier-5 basis uses position-only functions:
+
+$$\sin(2\pi k i/L),\quad \cos(2\pi k i/L),\quad k=1,\dots,5$$
+
+where $i$ is the residue index and $L$ is the sequence length. Because these
+basis functions depend only on position and not on residue identity, any
+alignment explained by them is, by construction, not identifiable as
+residue-level semantic alignment. The basis knows where a residue sits
+along the chain but not whether it is alanine, glycine, or lysine.
+
+This does **not** mean that the mid-frequency component removed by Fourier-5
+is proven non-biological. Real biological signals — secondary structure
+periodicity (\~3.6 residues per turn), domain boundaries, hydrophobic
+patterning — can produce position-correlated structure that overlaps with
+Fourier-5 frequency bands. However, because the basis is position-only,
+it cannot distinguish a real biological periodicity from a position-encoding
+artifact that happens to occupy the same frequency range.
+
+The critical distinction is between frequency and semantics:
+
+| Observation | Implies residue-level signal? |
+|---|---|
+| Mid-frequency component present | No — frequency ≠ semantics |
+| Fittable by position-only Fourier basis | Favors position-trend interpretation |
+| Correlated with residue identity | Yes — supports residue-level |
+| Mutation delta consistent across models | Strongly supports residue-level |
+| Correlated with structural/functional annotations | Strongly supports residue-level |
+| Survives position residualization | Supports residue-level |
+
+Therefore, Fourier-5 does not prove that the fitted mid-frequency
+component is non-biological; rather, it establishes that **any alignment
+removed by a position-only basis is not identifiable as residue-level
+semantic alignment**. Combined with the absence of mutation-delta
+consistency across models (§2.9, §2.11), this supports interpreting the
+observed cross-model CKA as position-linked smoothing bias rather than
+structural or biological convergence driven by residue identity.
+
+### 3.4 Limitations and Future Work
 
 - **Mutant panel.** Cross-mutant analysis on 10 random mutants (§2.7)
   shows high stability (max CKA 0.848 ± 0.009, best RF3 head invariant).
@@ -550,7 +590,7 @@ structural or functional convergence between the two models.
 
 ---
 
-### 3.4 Null Hierarchy Summary
+### 3.5 Null Hierarchy Summary
 
 The following table summarizes the full hierarchy of controls applied:
 
