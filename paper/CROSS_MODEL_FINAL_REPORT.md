@@ -344,18 +344,18 @@ To test whether mutation-specific cross-model alignment exists beyond the
 static WT baseline, we computed mutation-induced feature deltas for 300
 paired EVO2–RF3 mutants (both models run on the same protein variant):
 
-\[
+$$
 \Delta E_m = E_m - E_{WT}, \quad \Delta R_m = R_m - R_{WT}
-\]
+$$
 
 for the fixed head pair (mod0004_h28 ↔ mod0076_h00). RF3 mutant outputs
-were verified to differ substantially from WT (‖R_m − R_WT‖ ≈ 300–400
+were verified to differ substantially from WT ($\|R_m - R_{WT}\| \approx 300$–$400$
 for sampled mutants), ruling out file-reuse artifacts.
 
 | Analysis | CKA (mean ± sd) | Interpretation |
 |----------|-----------------|----------------|
-| Observed ΔE_m vs ΔR_m | 0.207 ± 0.079 | Ordered delta structure exists |
-| Pair-shuffle ΔE_m vs ΔR_{m'} | 0.212 ± 0.079 | No mutant-specific pairing (p = 0.42) |
+| Observed $\Delta E_m$ vs $\Delta R_m$ | 0.207 ± 0.079 | Ordered delta structure exists |
+| Pair-shuffle $\Delta E_m$ vs $\Delta R_{m'}$ | 0.212 ± 0.079 | No mutant-specific pairing (p = 0.42) |
 | Residue-shuffle null | 0.005 ± 0.003 | Residue order required (p < 1e-10) |
 
 The observed delta CKA is significantly above the residue-shuffle null,
@@ -368,8 +368,8 @@ a shared global perturbation mode that all mutants project onto, rather
 than mutation-specific cross-model response alignment.
 
 Per-residue analysis corroborates this interpretation. The correlation
-between ‖ΔE_m‖ and ‖ΔR_m‖ across residues averages 0.133 ± 0.236
-(weak, high variance), while ‖ΔE_m‖ correlates modestly but stably
+between $\|\Delta E_m\|$ and $\|\Delta R_m\|$ across residues averages 0.133 ± 0.236
+(weak, high variance), while $\|\Delta E_m\|$ correlates modestly but stably
 with contact density (0.111 ± 0.030), suggesting that perturbation
 magnitudes are biased toward structurally central residues. This
 structural bias is not sufficient to establish mutation-specific
@@ -385,7 +385,7 @@ signal. After subtracting the mean delta across mutants, delta CKA
 collapsed from 0.209 to 0.041, with no excess over pair-shuffled
 controls. Removing leading PCs also failed to create matched-pair
 enrichment. Retrieval analysis was indistinguishable from random: using
-ΔE_m to retrieve its matched ΔR_m among 200 RF3 mutants gave top-1
+$\Delta E_m$ to retrieve its matched $\Delta R_m$ among 200 RF3 mutants gave top-1
 accuracy 2/200, top-5 accuracy 4/200, and mean rank 102.2, close to
 the random expectation of mean rank 100. Thus the delta signal is best
 explained by a global mutation-nonspecific perturbation axis rather
@@ -613,9 +613,9 @@ dingcheng2024@shanghaitech.edu.cn.
 
 ### Figures
 
-| Figure | File | Description |
-|--------|------|-------------|
-| 1 | `fig_cka_matrix_null.png` | CKA matrix + max-null (2,000 perms) |
-| 2 | `fig_delta_null.png` | Delta CKA: observed vs pair-shuffle vs residue-shuffle |
-| 3 | `fig_local_delta.png` | Local delta: windows and 3D contacts |
-| 4 | `fig_residual_ladder.png` | Residualization: EVO2×RF3, FAESM×RF3, FAESM×EVO2 |
+| # | File | Description |
+|---|------|-------------|
+| 1 | `cka_matrix_null.png` | CKA matrix + max-null (2000 perms) |
+| 2 | `delta_null.png` | Delta: obs vs pair-shuf vs res-shuf |
+| 3 | `local_delta.png` | Local delta: windows and 3D contacts |
+| 4 | `residual_ladder.png` | Residualization: 3 model pairs |
