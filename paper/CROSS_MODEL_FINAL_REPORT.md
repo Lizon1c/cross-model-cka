@@ -218,8 +218,8 @@ CKA = 0.595 against the best pair's RF3 head, and CKA = 0.602 against
 the most position-sensitive RF3 head (mod0064_h05).
 
 **Polynomial regression:** Regressing out a linear position trend from
-the fixed best pair reduces CKA from 0.852 to 0.022. Cubic trend removal
-reduces it to 0.004.
+the fixed best pair reduces CKA from 0.853 to 0.133. Cubic trend removal
+reduces it to 0.035.
 
 **Residualized full scan:** After removing cubic position trends from all
 heads, the full-scan maximum drops to 0.543 and selects entirely different
@@ -314,7 +314,7 @@ The residualized full scan (cubic trend removal) selects entirely different
 head pairs (mod0003_h07 ↔ mod0059_h08, CKA = 0.543), indicating that the
 raw and residual signals use different head combinations. For the fixed
 raw-best pair (mod0004_h28 ↔ mod0076_h00), cubic residualization collapses
-CKA to 0.004, confirming that the raw-best pair's signal is almost entirely
+CKA to 0.035, confirming that the raw-best pair's signal is almost entirely
 positional.
 
 ### 2.6 Search for Position-Weak High-CKA Pairs
@@ -556,8 +556,8 @@ Several lines of evidence converge on this interpretation:
   a similar order of magnitude. This comparison is not additive (CKA is
   non-linear) and should not be interpreted as exactly 70% variance
   explained.
-- Removing a linear position trend collapses the fixed-pair CKA from 0.852
-  to 0.022.
+- Removing a linear position trend collapses the fixed-pair CKA from 0.853
+  to 0.133.
 - Position-only baselines systematically outperform real EVO2 at segment
   scales (mean excess −0.43 to −0.48).
 - Domain-level enrichment patterns disappear under position-aware nulls.
@@ -665,7 +665,7 @@ The following table summarizes the full hierarchy of controls applied:
 | Residue-shuffle | Residue-order dependence | CKA collapses (0.85 → 0.01): non-random order |
 | Max-null full scan | Multiple testing (194,560 pairs) | p ≈ 0.0005: head pair significant |
 | Position-only baseline | Coordinate geometry dominance | Sinusoid 0.60, linear 0.76: position explains majority |
-| Polynomial residualization | Low-order position trend | Linear residual 0.02, cubic 0.004: fixed pair positional |
+| Polynomial residualization | Low-order position trend | Linear residual 0.133, cubic 0.035 |
 | Contiguous-interval null | Domain position confound | Enrichment vanishes: not domain-specific |
 | Position-weak head filter | Need for position-sensitive heads | Max CKA 0.09 when both pos < 0.10 |
 | Segment excess scan | Local EVO2 advantage | Mean excess −0.43 to −0.48: no segment advantage |
