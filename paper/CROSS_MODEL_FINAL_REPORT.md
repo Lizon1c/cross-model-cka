@@ -94,7 +94,7 @@ not a reading-frame decoding claim (see §3.2 for frame-shift diagnostics).
 
 ### 1.2 Metrics
 
-- **linear_cka:** centered Gram-matrix CKA, K = X_c·X_c^T, range [0, 1].
+- **linear_cka:** centered Gram-matrix CKA, $K = X_c \cdot X_c^T$, range $[0, 1]$.
 - **Per-residue score:** strict Pearson correlation of distance profiles,
   guaranteed [−1, 1].
 - **Segment CKA:** CKA computed on a contiguous window of residues,
@@ -108,9 +108,10 @@ not a reading-frame decoding claim (see §3.2 for frame-shift diagnostics).
 ### 1.3 Position Baselines
 
 - **Sinusoidal position encoding:** 128-dimensional RoPE-style encoding:
-  PE(pos, 2i) = sin(pos·10000^(−2i/128)), PE(pos, 2i+1) = cos(pos·10000^(−2i/128)).
+  $$\mathrm{PE}(pos, 2i) = \sin\bigl(pos \cdot 10000^{-2i/128}\bigr), \quad
+  \mathrm{PE}(pos, 2i+1) = \cos\bigl(pos \cdot 10000^{-2i/128}\bigr).$$
 - **Polynomial position trend:** regression of residue features against
-  polynomial basis {1, t, t², t³} where t ∈ [0, 1] across the 422 residues.
+  polynomial basis $\{1, t, t^2, t^3\}$ where $t \in [0, 1]$ across the 422 residues.
 
 ### 1.4 Head-Activation Extraction
 
@@ -336,7 +337,7 @@ mod0063_h02 for Chain B, block 5/50). Both are DiffusionTransformer blocks.
 A/B averaging reduces the maximum CKA from 0.851 (single chain) to 0.800,
 indicating that chain-specific features carry signal that is diluted by
 averaging. At segment scales (window = 100 aa), chain differences are
-minimal (|Δ excess| < 0.07).
+minimal ($|\Delta \text{excess}| < 0.07$).
 
 ### 2.9 Mutation-Induced Delta Analysis
 
@@ -510,7 +511,7 @@ along the residue axis:
   zero (0.06), ruling out symmetric chain-end topology as the driver.
 - AR(1) smooth noise, which contains no biological or structural
   information, achieves moderate CKA with RF3, scaling with the
-  autocorrelation parameter ρ.
+  autocorrelation parameter $\rho$.
 
 The mechanism is mechanical rather than semantic. Both architectures
 perform extensive position mixing in their deep layers: RF3's
@@ -534,7 +535,7 @@ structural or functional convergence between the two models.
   This supports the coordinate-geometry interpretation but does not
   distinguish content from coordinate variation: both are expected to be
   stable under sparse point mutations. A stronger perturbational test
-  would correlate ΔCKA across mutants with mutation position, predicted
+  would correlate $\Delta$CKA across mutants with mutation position, predicted
   structural disruption, or DMS fitness scores after removing the shared
   position baseline.
 
