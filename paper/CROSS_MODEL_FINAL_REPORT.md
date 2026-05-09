@@ -171,7 +171,20 @@ repeat, and spacer regions. The protein alignment is region-specific.
 Most head pairs show low CKA (mean ≈ 0.15 across 194,560 pairs).
 Only 9.1% of pairs exceed CKA > 0.5.
 
+This first result establishes that the cross-model signal is statistically real.
+However, a high full-length CKA does not by itself identify what information is
+being shared. In particular, the signal could arise from biological content, from
+the coordinate projection used to align DNA and protein representations, or from
+generic position-dependent smoothness. We therefore next examined whether the
+codon-pooling step itself introduces a frame-specific interpretation.
+
 ### 2.2 Codon Pooling Diagnostics
+
+Because EVO2 operates on nucleotides whereas RF3 operates on residue-level
+protein tokens, the nucleotide-to-residue projection is a potential source of
+ambiguity. If the observed alignment reflected frame-aware codon decoding, it
+should be sensitive to codon boundaries. We therefore performed systematic
+frame-shift diagnostics:
 
 Systematic frame-shift tests show that CKA is insensitive to codon
 boundaries:
@@ -191,6 +204,14 @@ when replaced by codon-mean repeats). Codon pooling is a convenient
 coordinate projection, not evidence of reading-frame recognition.
 
 ### 2.3 Position-Only Baselines Match Real EVO2 at Segment Scales
+
+These diagnostics rule out a simple codon-boundary explanation. The frame-shift
+robustness instead suggests that the signal may be driven by smooth
+residue-coordinate structure. The next alternative explanation is that the two
+models share a low-frequency coordinate geometry rather than residue-specific
+biological information. If this is true, then simple functions of residue index
+should recover much of the RF3 head geometry, and removing low-order position
+trends should strongly reduce the cross-model CKA.
 
 **Sinusoid baseline:** A 128-d RoPE-style position encoding achieves
 CKA = 0.595 against the best pair's RF3 head, and CKA = 0.602 against
@@ -220,6 +241,12 @@ Fewer than 1.1% of windows exceed the position-only baseline by more than
 explicit coordinate bases.
 
 ### 2.4 Domain-Level Analysis Under Position-Aware Controls
+
+Although global position baselines explain much of the full-length signal, a
+possible remaining interpretation is that specific functional domains still
+contain biological alignment after controlling for broad coordinate trends. We
+therefore tested domain enrichment using null models that preserve domain length
+and position structure.
 
 Per-residue distance-profile scores were computed for the best pair.
 Domain enrichment was tested under three position-aware nulls:
@@ -263,6 +290,12 @@ along the global positional gradient, not evidence of functional convergence.
 
 ### 2.5 Position Sensitivity Is Head-Specific
 
+The preceding analyses suggest that position is a dominant factor, but they do
+not show whether this effect is generic across RF3 or concentrated in a subset
+of heads. To determine whether high CKA requires particular position-sensitive
+heads, we measured the response of every RF3 head to pure sinusoidal position
+encodings.
+
 Sinusoidal position encoding was evaluated against all 1,216 RF3 heads:
 
 | CKA range | heads | fraction |
@@ -286,6 +319,11 @@ positional.
 
 ### 2.6 Search for Position-Weak High-CKA Pairs
 
+If the high EVO2-RF3 CKA is indeed driven by matched position sensitivity, then
+removing position-sensitive heads should eliminate high-scoring pairs. This
+provides a complementary negative test: position-weak heads should not be able
+to produce substantial cross-model CKA.
+
 If high CKA strictly requires position-sensitive heads, then no head pair
 with low position sensitivity on both sides should achieve substantial CKA.
 We tested this by computing the sinusoid position-baseline CKA for every
@@ -307,6 +345,11 @@ filter (bottom 50%, max = 0.341). This confirms that high cross-model
 CKA requires matched position-sensitive heads on both sides.
 
 ### 2.7 Cross-Mutant Robustness
+
+The static WT analyses point to a coordinate-geometry explanation, but they
+leave open the possibility that sequence variation could reveal a hidden
+content-level alignment. We therefore asked whether the strongest head-pair
+alignment changes across protein mutants.
 
 To test whether the best-pair alignment is stable across protein sequence
 variation, we repeated the full 160 × 1,216 CKA scan on 10 additional
@@ -330,6 +373,10 @@ structure that drives the alignment.
 
 ### 2.8 Homodimer Chain Asymmetry
 
+Because RF3 represents AsCas12f1 as a homodimer, chain-specific structure could
+in principle affect the CKA estimate. We therefore repeated the analysis across
+chains to test whether the conclusion depends on the choice of protein chain.
+
 Chain A and Chain B CKA values correlate at r = 0.975 across all 194,560
 pairs. The best EVO2 head (mod0004_h28) is the same for both chains, but
 the optimal RF3 heads differ (mod0076_h00 for Chain A, block 18/50;
@@ -340,6 +387,13 @@ averaging. At segment scales (window = 100 aa), chain differences are
 minimal ($|\Delta \text{excess}| < 0.07$).
 
 ### 2.9 Mutation-Induced Delta Analysis
+
+Stability across mutants is consistent with a positional explanation, but it is
+not a sufficient test of mutation-specific information: both genuine biological
+alignment and coordinate-driven alignment could remain stable under sparse
+mutations. A stronger test is to remove the static WT baseline and ask whether
+the mutation-induced changes in EVO2 match the corresponding mutation-induced
+changes in RF3.
 
 To test whether mutation-specific cross-model alignment exists beyond the
 static WT baseline, we computed mutation-induced feature deltas for 300
@@ -404,6 +458,13 @@ random: top-1 accuracy 0.5–1.0%, mean rank 95–97 (random expectation:
 
 ### 2.10 FAESM–EVO2–RF3 Triangular Comparison
 
+The EVO2–RF3 analyses show that the DNA model does not provide evidence for
+non-positional residue semantics in this locus. However, this leaves a broader
+question: is RF3 generally aligned only through coordinate geometry, or can a
+protein language model retain richer non-positional similarity to RF3? To
+address this, we introduced FAESM as a protein-level language-model reference
+and compared all three models under the same residualization ladder.
+
 To distinguish shared low-frequency coordinate geometry from potential
 evolution-derived protein semantics, we compared EVO2, FAESM (ESM2-650M,
 a protein language model with learned rather than hard-coded position
@@ -442,6 +503,11 @@ and that cross-model alignment in this setting does not reflect shared
 evolution-derived residue semantics.
 
 ### 2.11 FAESM Mutation Delta Analysis
+
+The static triangular comparison suggests that FAESM shares richer mid-frequency
+residue-order geometry with RF3 than EVO2 does. The remaining question is whether
+this stronger static similarity translates into mutation-specific response
+alignment. We therefore repeated the paired-mutant delta analysis for FAESM–RF3.
 
 To test whether the protein language model exhibits mutation-specific
 cross-model alignment, we repeated the delta analysis on FAESM–RF3 using
